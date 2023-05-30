@@ -8,8 +8,7 @@ class post
     {
         $this->db=new Database();
 
-    }
-    
+    }   
     
     function getPosts()
     {
@@ -25,6 +24,8 @@ class post
 
     }
 
+    
+    
     function addPosts($data)
     {
         $this->db->query("INSERT INTO proj3 (ownername,street_name)VALUES(:ownername,:street_name)");
@@ -42,6 +43,9 @@ class post
             return false;
         }
     }
+    
+    
+    
     function updatePosts($data)
     {
         $this->db->query("UPDATE proj3 SET ownername=:ownername,street_name=:street_name WHERE id= :id");
@@ -58,7 +62,9 @@ class post
         {
             return false;
         }
-        }
+     }
+    
+    
 
         function deletePosts($id)
     {
@@ -75,6 +81,6 @@ class post
         {
             return false;
         }
-        }
+     }
 }
 ?>
