@@ -13,6 +13,8 @@ class Database
     private $statement;
     private $dbconnected=false; //this line only changed a parameter to true
 
+    
+    
     function __construct()
     {
         $dsn='mysql:host='.$this->host.';dbname='.$this->dbname;
@@ -20,7 +22,6 @@ class Database
         $options=array(
             PDO::ATTR_PERSISTENT=>true,
             PDO::ATTR_ERRMODE=> PDO::ERRMODE_EXCEPTION
-
         );
         try{
             $this->connection=new PDO($dsn,$this->username,$this->pass,$options);
@@ -31,46 +32,55 @@ class Database
             echo $e->getmessage();die;
             $this->error=$e->getmessage();
             $this->dbconnected=false;
-
         }
     }
+    
+    
    public function geterror()
     {
            return $this->error;
     }
-
+    
+        
+   //checks the connection
    public function Isconnected()
     {
         return $this->dbconnected;
     }
+    
     //statement prepare with query
     public function query($query)
     {
         $this->statement=$this->connection->prepare($query);
     } 
-
+    
+   //executes the value
     public function execute()
     {
         return $this->statement->execute();
     }
+    
     //get result 
     public function resultset()
     {
         $this->execute();
         return $this->statement->fetchAll(PDO::FETCH_OBJ);
-    }
-
+    }    
+    
+    //for row count
     public function getrowcount()
     {
         $this->statement->rowcount();
     }
-
+   
+   //fetching single value
     public function single()
     {
         $this->execute();
         return $this->statement->fetch(PDO::FETCH_OBJ);
     }
-
+        
+   //bindinng the values
     public function bind($parameter,$value,$type=null)
     {
         if(is_null($type))
